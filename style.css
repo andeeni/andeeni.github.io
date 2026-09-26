@@ -55,12 +55,13 @@ h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 500; }
 h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
 h3 { font-size: 1.3rem; }
 
-p { margin: 0 0 1em; color: var(--ink-soft); max-width: 65ch; }
+p { margin: 0 0 1em; color: var(--ink-soft); max-width: 100%; max-width: 90%;}
 
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 48px;
+  justify-content: center;
 }
 
 /* ---------- Navigation ---------- */
@@ -421,7 +422,7 @@ section.bordered { border-top: 1px solid var(--line); }
   -webkit-overflow-scrolling: touch;
 }
 .carousel-track .placeholder-img {
-  flex: 0 0 240px;
+  flex: 0 0 auto;
   scroll-snap-align: start;
   min-height: 180px;
 }
