@@ -493,7 +493,7 @@ section.bordered { border-top: 1px solid var(--line); }
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(10, 9, 8, 0.75);
+  background: rgba(10, 9, 8, 0.60);
 }
 .page-hero .container { position: relative; z-index: 1; }
 .page-hero h1 { color: #fff; }
