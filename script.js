@@ -15,6 +15,13 @@ document.addEventListener("DOMContentLoaded", function () {
         links.classList.remove("open");
       });
     });
+
+    // Close the menu when the visitor taps anywhere outside it
+    document.addEventListener("click", function (e) {
+      if (!links.classList.contains("open")) return;
+      if (links.contains(e.target) || toggle.contains(e.target)) return;
+      links.classList.remove("open");
+    });
   }
 
   // ---- Dark mode toggle ----
@@ -177,6 +184,14 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleBtn.addEventListener("click", function () {
       var open = subnav.classList.toggle("expanded");
       toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    // Collapse the dropdown when the visitor taps anywhere outside it
+    document.addEventListener("click", function (e) {
+      if (!subnav.classList.contains("expanded")) return;
+      if (subnav.contains(e.target)) return;
+      subnav.classList.remove("expanded");
+      toggleBtn.setAttribute("aria-expanded", "false");
     });
 
     var activeIndex = -1;
