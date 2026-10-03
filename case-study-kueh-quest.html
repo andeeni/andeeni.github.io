@@ -7,12 +7,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // Apply the theme before the page paints: this visit's choice if the
+    // visitor used the toggle, otherwise the device's light/dark setting.
+    (function () {
+      var t = null;
+      try { t = sessionStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") {
+        t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
 </head>
-<body>
+<body class="case-study-page">
 
   <header class="site-header">
     <nav class="container nav">
-      <a class="nav-brand" href="index.html">Deeni</a>
+      <a class="nav-brand" href="index.html"><img src="images/logo.png" alt="Deeni"/></a>
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
       </button>
@@ -102,7 +114,7 @@
           </div>
           <div style="justify-items: center;">
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/kuehquest/kueh-quest_prob.png" alt="" style="max-width: 400px;"/>
+              <img src="images/kuehquest/kueh-quest_prob.png" alt="" style="max-width: min(400px, 100%);"/>
             </div>
             <div>
               <i class="embed-note">Members aged 60 and above visit CPF's Service Centres for help with simple transactions that can actually be done online on their own.</i>
@@ -141,16 +153,16 @@
         <div class="carousel">
           <div class="carousel-track">
              <div class="placeholder-img" aria-hidden="true">
-              <img src="images/kuehquest/kueh-quest_screen1.png" alt="set up profile page" style="max-height: 600px; width: auto;"/>
+              <img src="images/kuehquest/kueh-quest_screen1.png" alt="set up profile page"/>
             </div>
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/kuehquest/kueh-quest_screen2.png" alt="" style="max-height: 600px; width: auto;"/>
+              <img src="images/kuehquest/kueh-quest_screen2.png" alt=""/>
             </div>
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/kuehquest/kueh-quest_screen3.png" alt="" style="max-height: 600px; width: auto;"/>
+              <img src="images/kuehquest/kueh-quest_screen3.png" alt=""/>
             </div>
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/kuehquest/kueh-quest_screen4.png" alt="" style="max-height: 600px; width: auto;"/>
+              <img src="images/kuehquest/kueh-quest_screen5.png" alt=""/>
             </div>
           </div>
           <div class="carousel-controls">
@@ -194,7 +206,7 @@
           </div>
           <div style="justify-items: center;">
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/kuehquest/focus-group.jpg" alt="" style="max-width: 400px;"/>
+              <img src="images/kuehquest/focus-group.jpg" alt="" style="max-width: min(400px, 100%);"/>
             </div>
             <div>
               <i class="embed-note">Online Focus Group Discussions were held with CPF staff</i>
@@ -205,7 +217,7 @@
         <div class='split-block'> 
           <div style="justify-items: center;">
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/kuehquest/CPF_svc-center.jpeg" alt="" style="max-width: 400px;"/>
+              <img src="images/kuehquest/CPF_svc-center.jpeg" alt="" style="max-width: min(400px, 100%);"/>
             </div>
             <div>
               <i class="embed-note">My team visited CPF's service centers to conduct interviews with CPF members aged 50 and above.</i>
@@ -254,7 +266,7 @@
           similar verbatims together to uncover <b>key insights</b>. 
         </p>
         <div style="display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
           gap: 20px;">
           <div class="placeholder-img" aria-hidden="true" style="padding: 0px;">
             <img src="images/kuehquest/affinity-mapping1.png" alt=""/>
@@ -315,7 +327,7 @@
         <div class="split-block">
           <div style="justify-items: center;">
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/kuehquest/brainstorming-solutions.png" alt=""/>
+              <img class="on-light" src="images/kuehquest/brainstorming-solutions.png" alt=""/>
             </div>
             <div>
               <i class="embed-note">Mindmap done by the team to generate possible solutions</i>
@@ -384,7 +396,7 @@
         <div class="split-block"  style="margin-top:28px;">
           <div style="justify-items: center;">
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/kuehquest/iteration-2.jpg" alt="" style="max-width: 250px;"/>
+              <img src="images/kuehquest/iteration-2.jpg" alt="" style="max-width: min(250px, 100%);"/>
             </div>
             <div>
               <i class="embed-note">Design Iteration 2 - Mobile layout</i>
@@ -581,11 +593,23 @@
         <!-- <p style="margin-top:20px;"><a href="https://capstone2022.sutd.edu.sg/projects/kueh-quest" target="_blank" rel="noopener">View the original project page →</a></p> -->
       </div>
     </section>
+
+    <!-- Next case study -->
+    <section class="more-work">
+      <div class="container">
+        <p class="more-work-label">See more of my work:</p>
+        <a class="more-work-card" href="case-study-careersoul.html">
+          <img src="images/proj/careersoul-cover1.png" alt="" />
+          <span class="more-work-title">CareerSoul (2022)</span>
+          <span class="more-work-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 Aiman Nurdeeni. Built with HTML, CSS &amp; a little JavaScript.</p>
+      <p>© 2026 Deeni A. H.. Built with HTML, CSS &amp; a little JavaScript.</p>
     </div>
   </footer>
 

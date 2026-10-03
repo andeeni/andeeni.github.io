@@ -13,12 +13,33 @@
   --accent: #7a3b4e;      /* plum */
   --accent-2: #c98a2c;    /* mustard */
   --accent-soft: #efe0e4;
+  --on-accent: #ffffff;   /* text sitting on an --accent fill */
+  --shadow: rgba(33, 31, 29, 0.18);
+
+  color-scheme: light;
 
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --max-width: 1080px;
   --radius: 4px;
+}
+
+/* Dark theme — data-theme is set in each page's <head> (matches the
+   device setting on load) and switched by the toggle in the nav. */
+:root[data-theme="dark"] {
+  --bg: #171513;
+  --bg-raised: #221f1c;
+  --ink: #eee8de;
+  --ink-soft: #b5ada2;
+  --line: #36312b;
+  --accent: #e09bb0;
+  --accent-2: #e2a64c;
+  --accent-soft: #3b2830;
+  --on-accent: #1b1917;
+  --shadow: rgba(0, 0, 0, 0.55);
+
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -33,6 +54,7 @@ body {
   font-size: 17px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 img { max-width: 100%; display: block; }
@@ -64,6 +86,11 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 100%; max-width: 90%;}
   justify-content: center;
 }
 
+@media (max-width: 640px) {
+  .container { padding: 0 20px; }
+  p { max-width: 100%; }
+}
+
 /* ---------- Navigation ---------- */
 .site-header {
   border-bottom: 1px solid var(--line);
@@ -85,13 +112,19 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 100%; max-width: 90%;}
   font-size: 1.15rem;
   color: var(--ink);
   text-decoration: none;
-  /* display: inline-block; 
-  max-width: 100%;  */
+  display: inline-flex;
+  align-items: center;
+}
+.nav-brand img {
+  height: 30px;
+  width: auto;
+  display: block;
 }
 .nav-brand:hover { text-decoration: none; }
 
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 32px;
   list-style: none;
   margin: 0;
@@ -125,9 +158,44 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 100%; max-width: 90%;}
   margin: 5px 0;
 }
 
+/* Dark mode toggle (added to .nav-links by script.js) */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+.theme-toggle .icon-sun,
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+.theme-toggle-label { display: none; }
+
 @media (max-width: 720px) {
+  .nav { padding: 14px 20px; }
   .nav-toggle { display: block; }
   .nav-links {
+    z-index: 2;
     position: absolute;
     top: 100%;
     left: 0;
@@ -139,8 +207,18 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 100%; max-width: 90%;}
     display: none;
   }
   .nav-links.open { display: flex; }
+  .nav-links { align-items: stretch; }
   .nav-links li { border-top: 1px solid var(--line); }
   .nav-links a { display: block; padding: 16px 24px; }
+  .theme-toggle {
+    width: 100%;
+    height: auto;
+    justify-content: flex-start;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 0;
+  }
+  .theme-toggle-label { display: inline; }
 }
 
 /* ---------- Hero ---------- */
@@ -277,6 +355,13 @@ section.bordered { border-top: 1px solid var(--line); }
   align-items: start;
 }
 .about-hero-grid .placeholder-img { min-height: 220px; border-radius: 50%; }
+.profile-photo {
+  display: block;
+  width: 220px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
 @media (max-width: 640px) {
   .about-hero-grid { grid-template-columns: 1fr; }
   .about-hero-grid .placeholder-img { max-width: 220px; }
@@ -393,9 +478,105 @@ section.bordered { border-top: 1px solid var(--line); }
   height: 24px;
   border-radius: 50%;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-size: 0.8rem;
 }
+
+/* Sticky copy of the process nav, built by script.js. It hangs just below
+   the main nav once the reader scrolls past "The process". When the steps
+   don't fit on one line it collapses into a dropdown (.compact). */
+.process-subnav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 10px 18px -16px var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+.process-subnav.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.process-subnav-inner {
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.process-subnav-title {
+  flex: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.process-subnav-list {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.process-subnav-list button,
+.process-subnav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  padding: 4px 14px 4px 4px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+.process-subnav-list button:hover { border-color: var(--accent); color: var(--accent); }
+.process-subnav-list button.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.process-subnav .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 0.75rem;
+}
+.process-subnav-toggle { display: none; padding-right: 12px; }
+.process-subnav-toggle .chevron { transition: transform 0.2s ease; }
+
+.process-subnav.compact .process-subnav-toggle { display: inline-flex; }
+.process-subnav.compact .process-subnav-inner { flex-wrap: wrap; }
+.process-subnav.compact .process-subnav-list {
+  display: none;
+  flex: 0 0 100%;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 0 4px;
+}
+.process-subnav.compact.expanded .process-subnav-list { display: flex; }
+.process-subnav.compact.expanded .process-subnav-toggle .chevron { transform: rotate(180deg); }
+.process-subnav.compact .process-subnav-list button { align-self: flex-start; }
+
+/* Leave room for the sticky header + step bar when jumping to a step */
+section[id] { scroll-margin-top: var(--scroll-offset, 80px); }
 
 /* ---------- Case study: pain points / findings ---------- */
 .finding-grid {
@@ -414,24 +595,45 @@ section.bordered { border-top: 1px solid var(--line); }
 .finding-card p { font-size: 0.92rem; margin-bottom: 0; }
 
 /* ---------- Carousel ---------- */
+/* One slide at a time; each image is scaled to fit the slide width and
+   the screen height. Swipe on touch screens, or use the arrow buttons. */
 .carousel { margin: 20px 0; }
 .carousel-track {
   display: flex;
-  gap: 18px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 10px;
+  scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
+.carousel-track::-webkit-scrollbar { display: none; }
 .carousel-track .placeholder-img {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
-  min-height: 180px;
+  flex: 0 0 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 8px;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+.carousel-track .placeholder-img img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(600px, 75vh);
+  object-fit: contain;
 }
 .carousel-controls {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
   margin-top: 10px;
+}
+.carousel-counter {
+  min-width: 3.5em;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
 }
 .carousel-btn {
   width: 36px;
@@ -474,6 +676,7 @@ section.bordered { border-top: 1px solid var(--line); }
   gap: 40px;
   align-items: center;
 }
+.split-block > * { min-width: 0; }
 @media (max-width: 800px) {
   .split-block { grid-template-columns: 1fr; }
 }
@@ -495,7 +698,7 @@ section.bordered { border-top: 1px solid var(--line); }
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(10, 9, 8, 0.60);
+  background: rgba(10, 9, 8, 0.70);
 }
 .page-hero .container { position: relative; z-index: 1; }
 .page-hero h1 { color: #fff; }
@@ -503,7 +706,7 @@ section.bordered { border-top: 1px solid var(--line); }
 .page-hero p.lede { color: rgba(255, 255, 255, 0.86); }
 .page-hero a { color: #fff; }
 .page-hero a:hover { color: var(--accent-2); }
-.page-hero .btn-primary { background: #fff; color: var(--ink); border-color: #fff; }
+.page-hero .btn-primary { background: #fff; color: #211f1d; border-color: #fff; }
 .page-hero .btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
 .page-hero .btn-secondary { color: #fff; border-color: rgba(255, 255, 255, 0.6); }
 .page-hero .btn-secondary:hover { border-color: #fff; background: rgba(255, 255, 255, 0.12); }
@@ -617,4 +820,88 @@ section.bordered { border-top: 1px solid var(--line); }
 @media (max-width: 640px) {
   .lightbox-prev, .lightbox-next { width: 38px; height: 38px; }
   .lightbox-content .placeholder-img { min-height: 260px; }
+}
+
+/* ---------- Case study: "See more of my work" card ---------- */
+.more-work { padding: 40px 0 8px; }
+.more-work-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.more-work-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 420px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  color: var(--ink);
+  box-shadow: 0 10px 22px -16px var(--shadow);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.more-work-card:hover {
+  text-decoration: none;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.more-work-card img {
+  flex: none;
+  width: 96px;
+  height: 72px;
+  object-fit: cover;
+}
+.more-work-title { flex: 1; font-size: 1.05rem; }
+.more-work-arrow {
+  padding-right: 20px;
+  color: var(--accent);
+  transition: transform 0.2s ease;
+}
+.more-work-card:hover .more-work-arrow { transform: translateX(4px); }
+
+/* ---------- Back-to-top button (added by script.js on case studies) ---------- */
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 30;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  box-shadow: 0 6px 16px -6px var(--shadow);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.back-to-top.visible { opacity: 0.5; visibility: visible; transform: none; }
+.back-to-top.visible:hover,
+.back-to-top.visible:focus-visible { opacity: 1; }
+
+/* Diagrams with transparent backgrounds and dark lines/text get a light
+   card behind them in dark mode so they stay legible. */
+:root[data-theme="dark"] img.on-light {
+  background: #f7f4ee;
+  border-radius: var(--radius);
 }

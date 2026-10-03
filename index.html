@@ -4,17 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deeni — UX Designer</title>
-  <meta name="description" content="Aiman Nurdeeni (Deeni) — UX Designer portfolio: case studies, skills, and experience." />
+  <meta name="description" content="Deeni A. H. — UX Designer portfolio: case studies, skills, and experience." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // Apply the theme before the page paints: this visit's choice if the
+    // visitor used the toggle, otherwise the device's light/dark setting.
+    (function () {
+      var t = null;
+      try { t = sessionStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") {
+        t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
 </head>
 <body>
 
   <header class="site-header">
     <nav class="container nav">
-      <a class="nav-brand" href="index.html" >
-        <!-- <img src="images/logo.png" alt=""/> -->
+      <a class="nav-brand" href="index.html">
+        <img src="images/logo.png" alt="Deeni"/>
       </a>
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
@@ -30,7 +42,7 @@
 
   <main>
     <!-- Hero -->
-    <section class="page-hero">
+    <section class="page-hero" style="--bg-img:url('images/bg-img-9.jpg'); background-position: 75% 25%;">
       <div class="container">
         <p class="eyebrow">UX Designer &amp; Digital Educator</p>
         <h1>Hi, I'm Deeni.</h1>
@@ -137,7 +149,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 Aiman Nurdeeni. Built with HTML, CSS &amp; a little JavaScript.</p>
+      <p>© 2026 Deeni A. H.. Built with HTML, CSS &amp; a little JavaScript.</p>
     </div>
   </footer>
 

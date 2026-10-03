@@ -7,12 +7,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // Apply the theme before the page paints: this visit's choice if the
+    // visitor used the toggle, otherwise the device's light/dark setting.
+    (function () {
+      var t = null;
+      try { t = sessionStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") {
+        t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
 </head>
-<body>
+<body class="case-study-page">
 
   <header class="site-header">
     <nav class="container nav">
-      <a class="nav-brand" href="index.html">Deeni</a>
+      <a class="nav-brand" href="index.html"><img src="images/logo.png" alt="Deeni"/></a>
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
       </button>
@@ -136,19 +148,19 @@
         <div class="carousel">
           <div class="carousel-track">
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/careersoul/careersoul-setup-profile.png" alt="set up profile page" style="max-height: 600px; width: auto;"/>
+              <img src="images/careersoul/careersoul-setup-profile.png" alt="set up profile page"/>
             </div>
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/careersoul/careersoul-homepage.png" alt="homepage" style="max-height: 600px; width: auto;"/>
+              <img src="images/careersoul/careersoul-homepage.png" alt="homepage"/>
             </div>
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/careersoul/careersoul-match.png" alt="match notification" style="max-height: 600px; width: auto;"/>
+              <img src="images/careersoul/careersoul-match.png" alt="match notification"/>
             </div>
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/careersoul/careersoul-applications.png" alt="applications page" style="max-height: 600px; width: auto;"/>
+              <img src="images/careersoul/careersoul-applications.png" alt="applications page"/>
             </div>
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/careersoul/careersoul-connect.png" alt="connect with other students" style="max-height: 600px; width: auto;"/>
+              <img src="images/careersoul/careersoul-connect.png" alt="connect with other students"/>
             </div>
           </div>
           <div class="carousel-controls">
@@ -220,7 +232,7 @@
             <p>Uploading customised cover letters and resumes for each role applied was a tedious task for most respondents.</p>
           </div>
         </div>
-        <p style="margin-top:16px;">
+        <p style="margin-top:24px;">
           We also noted a high proportion of those with <b>no career/internship
           experience found a lack of personal connections a major concern</b> —
           preferring to ask seniors and peers for career-related guidance,
@@ -282,7 +294,7 @@
           </div>
           <div style="justify-items: center;">
             <div class="placeholder-img" aria-hidden="true">
-              <img src="images/careersoul/dating-app-graphic.jpg" alt="graphic of the swipe deature on a dating app" style="max-width: 300px;"/>
+              <img src="images/careersoul/dating-app-graphic.jpg" alt="graphic of the swipe deature on a dating app" style="max-width: min(300px, 100%);"/>
             </div>
             <div>
               <i class="embed-note">The "swipe" feature common in dating apps</i>
@@ -571,11 +583,23 @@
         <p style="margin-top:20px;"><a href="https://www.behance.net/gallery/163053577/UXUI-Case-Study-CareerSoul-Job-Search-App" target="_blank" rel="noopener">View the original case study on Behance →</a></p>
       </div>
     </section>
+
+    <!-- Next case study -->
+    <section class="more-work">
+      <div class="container">
+        <p class="more-work-label">See more of my work:</p>
+        <a class="more-work-card" href="case-study-kueh-quest.html">
+          <img src="images/proj/kuehquest-cover1.png" alt="" />
+          <span class="more-work-title">Kueh Quest! (2022)</span>
+          <span class="more-work-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 Aiman Nurdeeni. Built with HTML, CSS &amp; a little JavaScript.</p>
+      <p>© 2026 Deeni A. H.. Built with HTML, CSS &amp; a little JavaScript.</p>
     </div>
   </footer>
 

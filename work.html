@@ -7,12 +7,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // Apply the theme before the page paints: this visit's choice if the
+    // visitor used the toggle, otherwise the device's light/dark setting.
+    (function () {
+      var t = null;
+      try { t = sessionStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") {
+        t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
 </head>
 <body>
 
   <header class="site-header">
     <nav class="container nav">
-      <a class="nav-brand" href="index.html">Deeni</a>
+      <a class="nav-brand" href="index.html"><img src="images/logo.png" alt="Deeni"/></a>
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
       </button>
@@ -26,7 +38,7 @@
   </header>
 
   <main>
-    <section class="page-hero" style="padding-bottom:70px;">
+    <section class="page-hero" style="padding-bottom:70px; --bg-img:url('images/bg-img-2.jpg')" style="">
       <div class="container">
         <p class="eyebrow">Case studies</p>
         <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Selected work</h1>
@@ -45,7 +57,7 @@
           <div>
             <h2>CareerSoul — Job Search App</h2>
             <div class="case-study-meta">
-              <span class="tag">2022</span>
+              <!-- <span class="tag">2022</span> -->
               <span class="tag">Mobile app</span>
               <span class="tag">User research → Hi-fi prototype</span>
             </div>
@@ -70,7 +82,7 @@
           <div>
             <h2>Kueh Quest!</h2>
             <div class="case-study-meta">
-              <span class="tag">2022</span>
+              <!-- <span class="tag">2022</span> -->
               <span class="tag">SUTD capstone, with CPF Board</span>
               <span class="tag">Figma &amp; ReactJS</span>
             </div>
@@ -95,7 +107,7 @@
           <div>
             <h2>SingHealth Retail Audit App</h2>
             <div class="case-study-meta">
-              <span class="tag">2021</span>
+              <!-- <span class="tag">2021</span> -->
               <span class="tag">Web app</span>
               <span class="tag">ReactJS · Tailwind CSS · AntDesign</span>
             </div>
@@ -120,7 +132,7 @@
           <div>
             <h2>s(NO)oze</h2>
             <div class="case-study-meta">
-              <span class="tag">2020</span>
+              <!-- <span class="tag">2020</span> -->
               <span class="tag">Android app</span>
               <span class="tag">Java</span>
             </div>
@@ -140,7 +152,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 Aiman Nurdeeni. Built with HTML, CSS &amp; a little JavaScript.</p>
+      <p>© 2026 Deeni A. H.. Built with HTML, CSS &amp; a little JavaScript.</p>
     </div>
   </footer>
 

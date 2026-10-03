@@ -7,12 +7,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // Apply the theme before the page paints: this visit's choice if the
+    // visitor used the toggle, otherwise the device's light/dark setting.
+    (function () {
+      var t = null;
+      try { t = sessionStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") {
+        t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
 </head>
 <body>
 
   <header class="site-header">
     <nav class="container nav">
-      <a class="nav-brand" href="index.html">Deeni</a>
+      <a class="nav-brand" href="index.html"><img src="images/logo.png" alt="Deeni"/></a>
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
       </button>
@@ -26,12 +38,12 @@
   </header>
 
   <main>
-    <section class="page-hero">
+    <section class="page-hero" style="--bg-img:url('images/bg-img-5.jpg')">
       <div class="container about-hero-grid">
-        <div class="placeholder-img" aria-hidden="true">Replace with your photo</div>
+        <img class="profile-photo" src="images/profile-photo.jpg" alt="Portrait of Deeni">
         <div>
           <p class="eyebrow" style="margin-bottom:10px;">About me</p>
-          <h1 style="font-size:clamp(2rem,4vw,2.6rem);">Aiman Nurdeeni</h1>
+          <h1 style="font-size:clamp(2rem,4vw,2.6rem);">Aiman Nur<u>deeni</u></h1>
           <p class="lede">
             I'm a UX designer with a research-led, systems-minded approach to
             digital design — from lo-fi wireframes through to shipped front-end
@@ -103,7 +115,7 @@
               </p>
             </div>
           </li>
-          <li>
+          <!-- <li>
             <div class="period">2020</div>
             <div>
               <h3>R&amp;D Technologist (Intern) — Pure Rich Biogems</h3>
@@ -114,7 +126,7 @@
                 the internship.
               </p>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
     </section>
@@ -129,10 +141,10 @@
             <ul>
               <li>Design thinking &amp; user-centred design</li>
               <li>User research &amp; interviews</li>
-              <li>Journey mapping</li>
+              <!-- <li>Journey mapping</li> -->
               <li>Lo-fi → hi-fi prototyping</li>
-              <li>Usability testing (Think-Aloud, SUS)</li>
-              <li>Information architecture</li>
+              <li>Usability testing</li>
+              <li>Responsive design</li>
             </ul>
           </div>
           <div>
@@ -141,16 +153,9 @@
               <li>Figma &amp; Adobe XD</li>
               <li>Photoshop &amp; Illustrator</li>
               <li>Canva</li>
-              <li>Excalidraw</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Front-end development</h4>
-            <ul>
-              <li>HTML / CSS / JavaScript</li>
-              <li>ReactJS &amp; Tailwind CSS</li>
+              <li>HTML / CSS</li>
+              <li>ReactJS</li>
               <li>Python</li>
-              <li>Basic unit testing (Selenium)</li>
             </ul>
           </div>
           <div>
@@ -159,7 +164,7 @@
               <li>Supporting learners with additional needs</li>
               <li>Simplifying complex ideas for different audiences</li>
               <li>Mentoring &amp; tutoring (see volunteering below)</li>
-              <li>Cross-team documentation &amp; guidelines</li>
+              <!-- <li>Cross-team documentation &amp; guidelines</li> -->
             </ul>
           </div>
         </div>
@@ -170,17 +175,45 @@
     <section class="bordered">
       <div class="container">
         <div class="section-head">
-          <h2>Selected UI work — OrangeKloud</h2>
+          <h2>Selected UI work</h2>
         </div>
         <p>
           A few pieces from the design system and wireframes I worked on at
           OrangeKloud, in Figma.
         </p>
         <div class="mini-grid">
-          <div class="placeholder-img" aria-hidden="true">Design kit — colours &amp; type</div>
-          <div class="placeholder-img" aria-hidden="true">Component library</div>
-          <div class="placeholder-img" aria-hidden="true">Wireframe screen 1</div>
-          <div class="placeholder-img" aria-hidden="true">Wireframe screen 2</div>
+          <div style="justify-items: center;">
+            <div class="placeholder-img" aria-hidden="true" style="padding: 0px;">
+              <img src="images/OK work/ok-work-1.jpg" alt="" />
+            </div>
+            <div>
+              <i class="embed-note">Design kit — colours &amp; type</i>
+            </div>
+          </div>
+          <div style="justify-items: center;">
+            <div class="placeholder-img" aria-hidden="true" style="padding: 0px;">
+              <img src="images/OK work/ok-work-2.jpg" alt="" />
+            </div>
+            <div>
+              <i class="embed-note">Component library</i>
+            </div>
+          </div>
+          <div style="justify-items: center;">
+            <div class="placeholder-img" aria-hidden="true" style="padding: 0px;">
+              <img src="images/OK work/ok-work-3.jpg" alt="" />
+            </div>
+            <div>
+              <i class="embed-note">Wireframe screen 1</i>
+            </div>
+          </div>
+          <div style="justify-items: center;">
+            <div class="placeholder-img" aria-hidden="true" style="padding: 0px;">
+              <img src="images/OK work/ok-work-3.jpg" alt="" />
+            </div>
+            <div>
+              <i class="embed-note">Wireframe screen 2</i>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -191,24 +224,35 @@
         <div class="section-head">
           <h2>Beyond the studio</h2>
         </div>
+        <p>
+          Some things I get up to in my free time~
+        </p>
         <div class="beyond-grid">
           <div>
-            <div class="placeholder-img" aria-hidden="true">Crochet photo</div>
+            <div class="placeholder-img" aria-hidden="true" style="padding: 0px;">
+              <img src="images/interests/crochet.jpg" alt="" />
+            </div>
             <h4>Crochet</h4>
             <p>A slow, hands-on counterpart to screen-based design work.</p>
           </div>
           <div>
-            <div class="placeholder-img" aria-hidden="true">Photography photo</div>
+            <div class="placeholder-img" aria-hidden="true" style="padding: 0px;">
+              <img src="images/interests/photog.jpg" alt="" />
+            </div>
             <h4>Photography &amp; film</h4>
             <p>Exploring Fujifilm-style film simulation looks in post-production.</p>
           </div>
           <div>
-            <div class="placeholder-img" aria-hidden="true">Archery photo</div>
+            <div class="placeholder-img" aria-hidden="true" style="padding: 0px;">
+              <img src="images/interests/archery.jpg" alt="" />
+            </div>
             <h4>Archery</h4>
-            <p>Competed nationally at Poly and university level with SUTD Archery Club.</p>
+            <p>Participated in inter-institutional competitions during my schooling days.</p>
           </div>
           <div>
-            <div class="placeholder-img" aria-hidden="true">Volunteering photo</div>
+            <div class="placeholder-img" aria-hidden="true" style="padding: 0px;">
+              <img src="images/interests/apex.jpg" alt="" />
+            </div>
             <h4>Volunteering — APEX Mentors</h4>
             <p>Tutoring Primary 6 students in Math and Science, and supporting publicity.</p>
           </div>
@@ -219,7 +263,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 Aiman Nurdeeni. Built with HTML, CSS &amp; a little JavaScript.</p>
+      <p>© 2026 Deeni A. H.. Built with HTML, CSS &amp; a little JavaScript.</p>
     </div>
   </footer>
 

@@ -7,12 +7,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // Apply the theme before the page paints: this visit's choice if the
+    // visitor used the toggle, otherwise the device's light/dark setting.
+    (function () {
+      var t = null;
+      try { t = sessionStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") {
+        t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
 </head>
 <body>
 
   <header class="site-header">
     <nav class="container nav">
-      <a class="nav-brand" href="index.html">Deeni</a>
+      <a class="nav-brand" href="index.html"><img src="images/logo.png" alt="Deeni"/></a>
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
       </button>
@@ -26,7 +38,7 @@
   </header>
 
   <main>
-    <section class="page-hero" style="padding-bottom:70px;">
+    <section class="page-hero" style="padding-bottom:70px; --bg-img:url('images/bg-img-8.jpg')">
       <div class="container">
         <p class="eyebrow">Get in touch</p>
         <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Let's talk.</h1>
@@ -59,7 +71,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 Aiman Nurdeeni. Built with HTML, CSS &amp; a little JavaScript.</p>
+      <p>© 2026 Deeni A. H.. Built with HTML, CSS &amp; a little JavaScript.</p>
     </div>
   </footer>
 
