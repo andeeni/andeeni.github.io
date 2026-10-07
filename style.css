@@ -647,6 +647,17 @@ section[id] { scroll-margin-top: var(--scroll-offset, 80px); }
 }
 .carousel-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+/* Two carousels per row on desktop, one per row on mobile. */
+.carousel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+.carousel-grid .carousel { min-width: 0; margin: 0; }
+@media (max-width: 640px) {
+  .carousel-grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- Embeds (Figma / YouTube) ---------- */
 .embed-wrap {
   position: relative;
